@@ -56,3 +56,18 @@ pids
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 /generated/prisma
+
+# Security - Private keys and sensitive files
+*.pem
+*.key
+*_key*.txt
+*_key*.pem
+private_key*.txt
+public_key*.txt
+*_key-base64.txt
+*.crt
+*.csr
+*.p12
+*.pfx
+secrets/
+keys/
