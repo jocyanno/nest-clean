@@ -31,6 +31,6 @@ export class PrismaQuestionMapper {
       slug: question.slug.value,
       createdAt: question.createdAt,
       updatedAt: question.updatedAt,
-    }
+    };
   }
 }
