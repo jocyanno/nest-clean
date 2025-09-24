@@ -1,6 +1,8 @@
 import { QuestionsRepository } from '../repositories/questions-repository';
 import { Question } from '../../enterprise/entities/question';
 import { Either, right } from '@/core/either';
+import { Inject, Injectable } from '@nestjs/common';
+import { DATABASE_TOKENS } from '@/infra/database/database.tokens';
 
 interface FetchRecentQuestionsUseCaseRequest {
   page: number;
@@ -13,8 +15,12 @@ type FetchRecentQuestionsUseCaseResponse = Either<
   }
 >;
 
+@Injectable()
 export class FetchRecentQuestionsUseCase {
-  constructor(private questionsRepository: QuestionsRepository) {}
+  constructor(
+    @Inject(DATABASE_TOKENS.QuestionsRepository)
+    private questionsRepository: QuestionsRepository,
+  ) {}
 
   async execute({
     page,

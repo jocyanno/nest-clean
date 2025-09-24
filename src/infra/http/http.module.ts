@@ -5,10 +5,12 @@ import { FetchRecentQuestionsController } from './controllers/fetch-recent-quest
 import { AuthenticateController } from './controllers/authenticate-controller';
 import { CreateAccountController } from './controllers/create-account.controller';
 import { DatabaseModule } from '../database/database.module';
-import { PrismaService } from '../database/prisma/prisma.service';
+import { AuthModule } from '../auth/auth.module';
+import { CreateQuestionUseCase } from '@/domain/forum/application/use-cases/create-question';
+import { FetchRecentQuestionsUseCase } from '@/domain/forum/application/use-cases/fetch-recent-questions';
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [DatabaseModule, AuthModule],
   controllers: [
     AppController,
     CreateAccountController,
@@ -16,6 +18,6 @@ import { PrismaService } from '../database/prisma/prisma.service';
     CreateQuestionController,
     FetchRecentQuestionsController,
   ],
-  providers: [PrismaService],
+  providers: [CreateQuestionUseCase, FetchRecentQuestionsUseCase],
 })
 export class HttpModule {}

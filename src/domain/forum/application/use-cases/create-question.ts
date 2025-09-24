@@ -1,9 +1,11 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import { QuestionsRepository } from '../repositories/questions-repository';
+import type { QuestionsRepository } from '../repositories/questions-repository';
 import { Question } from '../../enterprise/entities/question';
 import { Either, right } from '@/core/either';
 import { QuestionAttachment } from '../../enterprise/entities/question-attachment';
 import { QuestionAttachmentList } from '../../enterprise/entities/question-attachment-list';
+import { Inject, Injectable } from '@nestjs/common';
+import { DATABASE_TOKENS } from '@/infra/database/database.tokens';
 
 interface CreateQuestionUseCaseRequest {
   authorId: string;
@@ -14,8 +16,12 @@ interface CreateQuestionUseCaseRequest {
 
 type CreateQuestionUseCaseResponse = Either<null, { question: Question }>;
 
+@Injectable()
 export class CreateQuestionUseCase {
-  constructor(private questionsRepository: QuestionsRepository) {}
+  constructor(
+    @Inject(DATABASE_TOKENS.QuestionsRepository)
+    private questionsRepository: QuestionsRepository,
+  ) {}
 
   async execute({
     authorId,
