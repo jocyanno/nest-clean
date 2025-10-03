@@ -6,8 +6,9 @@ import { PrismaAnswersRepository } from './prisma/repositories/prisma-answers-re
 import { PrismaQuestionAttachmentsRepository } from './prisma/repositories/prisma-question-attachments-repository';
 import { PrismaQuestionCommentsRepository } from './prisma/repositories/prisma-question-comments-repository';
 import { PrismaQuestionsRepository } from './prisma/repositories/prisma-questions-repository';
-import { QuestionsRepository } from '@/domain/forum/application/repositories/questions-repository';
 import { DATABASE_TOKENS } from './database.tokens';
+import { StudentsRepository } from '@/domain/forum/application/repositories/students-repository';
+import { PrismaStudentsRepository } from './prisma/repositories/prisma-students-repository';
 
 @Module({
   providers: [
@@ -15,6 +16,10 @@ import { DATABASE_TOKENS } from './database.tokens';
     {
       provide: DATABASE_TOKENS.QuestionsRepository,
       useClass: PrismaQuestionsRepository,
+    },
+    {
+      provide: StudentsRepository,
+      useClass: PrismaStudentsRepository,
     },
     PrismaQuestionCommentsRepository,
     PrismaQuestionAttachmentsRepository,
@@ -25,6 +30,7 @@ import { DATABASE_TOKENS } from './database.tokens';
   exports: [
     PrismaService,
     DATABASE_TOKENS.QuestionsRepository,
+    StudentsRepository,
     PrismaQuestionCommentsRepository,
     PrismaQuestionAttachmentsRepository,
     PrismaAnswersRepository,
